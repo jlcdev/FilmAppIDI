@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search_title"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Buscar por título" />
+        <item
+            android:id="@+id/nav_search_actor"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Buscar por actor" />
+        <item
+            android:id="@+id/nav_film_list"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Lista de películas" />
+        <item
+            android:id="@+id/nav_add_film"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Añadir película" />
+    </group>
+</menu>
