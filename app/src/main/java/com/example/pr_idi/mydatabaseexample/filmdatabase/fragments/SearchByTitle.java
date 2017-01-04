@@ -98,7 +98,7 @@ public class SearchByTitle extends Fragment
     }
 
     public void delete(final int position){
-        Film film = this.films.get(position);
+        final Film film = this.films.get(position);
         AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
         adb.setTitle("Esborrar?");
         adb.setMessage("Estàs segur d'el·liminar la pel·lícula "+ film.getTitle());
@@ -108,6 +108,7 @@ public class SearchByTitle extends Fragment
         {
             public void onClick(DialogInterface dialog, int which)
             {
+                database.deleteFilm(film);
                 films.remove(position);
                 searchFilmAdapter.updateAdapter(films);
                 searchFilmAdapter.notifyDataSetChanged();
