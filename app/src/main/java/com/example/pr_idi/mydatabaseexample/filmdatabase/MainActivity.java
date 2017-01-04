@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByTitle;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByActor;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = SearchByTitle.newInstance(bundle, filmData);
                 break;
             case 1:
-                fragment = SearchByTitle.newInstance(bundle, filmData);
+                fragment = SearchByActor.newInstance(bundle, filmData);
                 break;
             case 2:
                 fragment = SearchByTitle.newInstance(bundle, filmData);
