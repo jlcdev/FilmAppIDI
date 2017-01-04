@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:text="Títol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_title" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/add_film_field_title"
+        android:hint="Títol de la pel·lícula" />
+
+    <TextView
+        android:text="Director"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_director" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/add_film_field_director"
+        android:hint="Director de la pel·lícula" />
+
+    <TextView
+        android:text="Any"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_year" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_film_field_year" />
+
+    <TextView
+        android:text="País"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_country" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_film_field_country" />
+
+    <TextView
+        android:text="Actor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_actor" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/add_film_field_actor"
+        android:hint="Actor principal" />
+
+    <TextView
+        android:text="Valoració"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_add_film_puntuation" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:srcCompat="@android:drawable/arrow_down_float"
+            android:id="@+id/add_film_field_down"
+            android:background="@android:color/transparent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="5"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/add_film_field_puntuation"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:srcCompat="@android:drawable/arrow_up_float"
+            android:id="@+id/add_film_field_up"
+            android:background="@android:color/transparent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:text="Enmagatzemar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_film_button_save" />
+</LinearLayout>

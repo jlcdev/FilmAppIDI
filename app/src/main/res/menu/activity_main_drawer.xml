@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_search_title"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Buscar por título" />
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Cercar per títol" />
         <item
             android:id="@+id/nav_search_actor"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Buscar por actor" />
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Cercar per actor" />
         <item
             android:id="@+id/nav_film_list"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Lista de películas" />
+            android:icon="@drawable/ic_playlist_play_black_24dp"
+            android:title="Llista de pel·lícules" />
         <item
             android:id="@+id/nav_add_film"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Añadir película" />
+            android:icon="@drawable/ic_playlist_add_black_24dp"
+            android:title="Afegir una pel·lícula" />
     </group>
 </menu>
