@@ -22,7 +22,6 @@ public class SearchActorAdapter extends BaseAdapter
     LayoutInflater layoutInflater;
     private ActorFilter actorFilter;
     private Context context;
-    private SearchActorAdapter self;
     private SearchByActor searchByActor;
 
     public SearchActorAdapter(SearchByActor baseClass, Context context, List originalList)
@@ -32,7 +31,6 @@ public class SearchActorAdapter extends BaseAdapter
         this.searchByActor = baseClass;
         layoutInflater = LayoutInflater.from(context);
         getFilter();
-        self = this;
     }
 
     @Override

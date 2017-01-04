@@ -22,7 +22,6 @@ public class SearchFilmAdapter extends BaseAdapter
     LayoutInflater layoutInflater;
     private FilmFilter filmFilter;
     private Context context;
-    private SearchFilmAdapter self;
     private SearchByTitle searchByTitle;
 
     public SearchFilmAdapter(SearchByTitle baseClass, Context context, List originalList)
@@ -32,7 +31,6 @@ public class SearchFilmAdapter extends BaseAdapter
         this.searchByTitle = baseClass;
         layoutInflater = LayoutInflater.from(context);
         getFilter();
-        self = this;
     }
 
     @Override
