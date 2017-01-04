@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -56,6 +57,10 @@ public class AddFilm extends Fragment implements View.OnClickListener
         director = (EditText) view.findViewById(R.id.add_film_field_director);
         actor = (EditText) view.findViewById(R.id.add_film_field_actor);
         puntuation = (TextView) view.findViewById(R.id.add_film_field_puntuation);
+        ImageButton downButton = (ImageButton) view.findViewById(R.id.add_film_field_down);
+        ImageButton upButton = (ImageButton) view.findViewById(R.id.add_film_field_up);
+        downButton.setOnClickListener(this);
+        upButton.setOnClickListener(this);
 
 
         //Set spinner for year
@@ -109,39 +114,58 @@ public class AddFilm extends Fragment implements View.OnClickListener
 
     }
 
+    private void storeFilm(){
+        boolean warning = false;
+        String title = this.title.getText().toString();
+        if(title.isEmpty()){
+            warning = true;
+            this.title.setError("No pot ser buit");
+        }else this.title.setError(null);
+        String director = this.director.getText().toString();
+        if(director.isEmpty()){
+            warning = true;
+            this.director.setError("No pot ser buit");
+        }else this.director.setError(null);
+        String actor = this.actor.getText().toString();
+        if(actor.isEmpty()){
+            warning = true;
+            this.actor.setError("No pot ser buit");
+        }else this.actor.setError(null);
+        int year = Integer.parseInt(this.spinnerYear.getSelectedItem().toString());
+        String country = this.spinnerCountry.getSelectedItem().toString();
+        int rate = Integer.parseInt(this.puntuation.getText().toString());
+        if(rate < 0 || rate > 10){
+            warning = true;
+            this.puntuation.setError("Entre 0 i 10");
+        }else this.puntuation.setError(null);
+        if(!warning){
+            database.createFilm(title, director, actor, country, year, rate);
+            parentListener.onFragmentInteraction(SearchByTitle.TAG, new Bundle());
+        }
+    }
+
     @Override
     public void onClick(View v)
     {
+        int num;
         if(this.title == null || this.director == null || this.actor == null || this.spinnerYear == null || this.spinnerCountry == null) return;
         switch(v.getId()){
             case R.id.add_film_button_save:
-                boolean warning = false;
-                String title = this.title.getText().toString();
-                if(title.isEmpty()){
-                    warning = true;
-                    this.title.setError("No pot ser buit");
-                }else this.title.setError(null);
-                String director = this.director.getText().toString();
-                if(director.isEmpty()){
-                    warning = true;
-                    this.director.setError("No pot ser buit");
-                }else this.director.setError(null);
-                String actor = this.actor.getText().toString();
-                if(actor.isEmpty()){
-                    warning = true;
-                    this.actor.setError("No pot ser buit");
-                }else this.actor.setError(null);
-                int year = Integer.parseInt(this.spinnerYear.getSelectedItem().toString());
-                String country = this.spinnerCountry.getSelectedItem().toString();
-                int rate = Integer.parseInt(this.puntuation.getText().toString());
-                if(rate < 0 || rate > 10){
-                    warning = true;
-                    this.puntuation.setError("Entre 0 i 10");
-                }else this.puntuation.setError(null);
-                if(!warning){
-                    database.createFilm(title, director, actor, country, year, rate);
-                    parentListener.onFragmentInteraction(0, new Bundle());
-                }
+                storeFilm();
+                break;
+
+            case R.id.add_film_field_down:
+                num = Integer.parseInt(this.puntuation.getText().toString());
+                num -= 1;
+                if(num < 0) num = 0;
+                this.puntuation.setText(""+num);
+                break;
+
+            case R.id.add_film_field_up:
+                num = Integer.parseInt(this.puntuation.getText().toString());
+                num += 1;
+                if(num > 10) num = 10;
+                this.puntuation.setText(""+num);
                 break;
         }
     }
