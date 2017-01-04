@@ -2,8 +2,10 @@ package com.example.pr_idi.mydatabaseexample.filmdatabase.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class SearchByTitle extends Fragment
     private FilmData database;
     private TextWatcher searchFieldWatcher;
     private SearchFilmAdapter searchFilmAdapter;
+    private List<Film> films;
 
     public SearchByTitle(){}
 
@@ -48,18 +51,18 @@ public class SearchByTitle extends Fragment
         View view = inflater.inflate(R.layout.fragment_search_by_title, container, false);
         listView = (ListView) view.findViewById(R.id.list_search_title);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_title);
-        final List<Film> values = database.getAllFilms();
+        films = database.getAllFilms();
 
         //Set autocomplete values
-        String[] proposals = new String[values.size()];
-        for(int i=0; i < values.size(); ++i){
-            proposals[i] = values.get(i).getTitle();
+        String[] proposals = new String[films.size()];
+        for(int i=0; i < films.size(); ++i){
+            proposals[i] = films.get(i).getTitle();
         }
         ArrayAdapter<String> proposalAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, proposals);
         autoCompleteTextView.setAdapter(proposalAdapter);
 
         //Set list values
-        searchFilmAdapter = new SearchFilmAdapter(view.getContext(), values);
+        searchFilmAdapter = new SearchFilmAdapter(this, view.getContext(), films);
         listView.setAdapter(searchFilmAdapter);
 
         //filtering list values with autocomplete field information
@@ -67,7 +70,7 @@ public class SearchByTitle extends Fragment
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 FilmFilter filter = searchFilmAdapter.getFilter();
-                filter.setOriginalFilmList(values);
+                filter.setOriginalFilmList(films);
                 filter.filter(s);
             }
             @Override
@@ -92,5 +95,23 @@ public class SearchByTitle extends Fragment
     {
         super.onDetach();
         parentListener = null;
+    }
+
+    public void delete(final int position){
+        Film film = this.films.get(position);
+        AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
+        adb.setTitle("Esborrar?");
+        adb.setMessage("Estàs segur d'el·liminar la pel·lícula "+ film.getTitle());
+        final int positionToRemove = position;
+        adb.setNegativeButton("Cancel", null);
+        adb.setPositiveButton("Ok", new AlertDialog.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int which)
+            {
+                films.remove(position);
+                searchFilmAdapter.updateAdapter(films);
+                searchFilmAdapter.notifyDataSetChanged();
+            }});
+        adb.show();
     }
 }

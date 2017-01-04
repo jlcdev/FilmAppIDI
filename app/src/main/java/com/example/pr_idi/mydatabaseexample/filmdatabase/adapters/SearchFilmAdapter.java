@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmFilter;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 
 import java.util.List;
@@ -21,12 +21,18 @@ public class SearchFilmAdapter extends BaseAdapter
     private List<Film> originalList;
     LayoutInflater layoutInflater;
     private FilmFilter filmFilter;
+    private Context context;
+    private SearchFilmAdapter self;
+    private SearchByTitle searchByTitle;
 
-    public SearchFilmAdapter(Context context, List originalList)
+    public SearchFilmAdapter(SearchByTitle baseClass, Context context, List originalList)
     {
         this.originalList = originalList;
+        this.context = context;
+        this.searchByTitle = baseClass;
         layoutInflater = LayoutInflater.from(context);
         getFilter();
+        self = this;
     }
 
     @Override
@@ -45,13 +51,19 @@ public class SearchFilmAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         convertView = layoutInflater.inflate(R.layout.list_item_search_title, null);
         TextView textView = (TextView) convertView.findViewById(R.id.list_item_search_title_text);
-        Film film = this.originalList.get(position);
-        textView.setText(film.getTitle() + " - " + film.getDirector());
+        final Film film = this.originalList.get(position);
+        textView.setText(film.getTitle());
         ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.list_item_search_title_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                searchByTitle.delete(position);
+            }
+        });
         return convertView;
     }
 
