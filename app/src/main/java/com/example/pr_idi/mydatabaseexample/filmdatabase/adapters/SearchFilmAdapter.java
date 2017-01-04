@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmFilter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 
 import java.util.List;
@@ -17,14 +19,14 @@ import java.util.List;
 public class SearchFilmAdapter extends BaseAdapter
 {
     private List<Film> originalList;
-    private List<Film> filteredList;
     LayoutInflater layoutInflater;
+    private FilmFilter filmFilter;
 
     public SearchFilmAdapter(Context context, List originalList)
     {
         this.originalList = originalList;
-        this.filteredList = originalList;
         layoutInflater = LayoutInflater.from(context);
+        getFilter();
     }
 
     @Override
@@ -51,5 +53,15 @@ public class SearchFilmAdapter extends BaseAdapter
         textView.setText(film.getTitle() + " - " + film.getDirector());
         ImageButton imageButton = (ImageButton) convertView.findViewById(R.id.list_item_search_title_button);
         return convertView;
+    }
+
+    public FilmFilter getFilter(){
+        if(filmFilter == null) filmFilter = new FilmFilter(this);
+        return filmFilter;
+    }
+
+    public void updateAdapter(List<Film> filtered){
+        this.originalList = filtered;
+        this.notifyDataSetChanged();
     }
 }
