@@ -9,6 +9,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -17,7 +19,6 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchActorAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorActor;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorFilter;
-import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
@@ -64,6 +65,17 @@ public class SearchByActor extends Fragment
         //Set list values
         searchActorAdapter = new SearchActorAdapter(this, view.getContext(), films);
         listView.setAdapter(searchActorAdapter);
+        listView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Film film = (Film) searchActorAdapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("actor", film.getProtagonist());
+                parentListener.onFragmentInteraction(ShowFilms.TAG, bundle);
+            }
+        });
 
         //filtering list values with autocomplete field information
         searchFieldWatcher = new TextWatcher() {

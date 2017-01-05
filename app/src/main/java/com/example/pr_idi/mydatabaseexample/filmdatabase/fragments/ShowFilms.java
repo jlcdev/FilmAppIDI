@@ -45,7 +45,7 @@ public class ShowFilms extends Fragment
         //Filter options
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            String actor = bundle.getString("Actor", null);
+            String actor = bundle.getString("actor", null);
             long id = bundle.getLong("id", -1);
             for(int i = 0; i < listFilm.size();++i){
                 Film film = listFilm.get(i);
