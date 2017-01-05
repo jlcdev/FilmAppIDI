@@ -103,6 +103,18 @@ public class FilmData {
         return comments;
     }
 
+    public Film getFilm(long id){
+        for(Film f : getAllFilms()){
+            if(f.getId() == id) return f;
+        }
+        return null;
+    }
+
+    public Film editFilm(Film film){
+        deleteFilm(film);
+        return createFilm(film.getTitle(), film.getDirector(), film.getProtagonist(), film.getCountry(), film.getYear(), film.getCritics_rate());
+    }
+
     private Film cursorToFilm(Cursor cursor) {
         Film film = new Film();
         film.setId(cursor.getLong(0));

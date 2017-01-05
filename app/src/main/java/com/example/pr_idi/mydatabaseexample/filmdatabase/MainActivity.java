@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByActor;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case SearchByTitle.TAG:
                 fragment = SearchByTitle.newInstance(bundle, filmData);
                 break;
-            case 1:
+            case SearchByActor.TAG:
                 fragment = SearchByActor.newInstance(bundle, filmData);
                 break;
             case 2:
@@ -111,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case AddFilm.TAG:
                 fragment = AddFilm.newInstance(bundle, filmData);
+                break;
+            case EditRate.TAG:
+                fragment = EditRate.newInstance(bundle, filmData);
                 break;
         }
         if(fragment == null) {
