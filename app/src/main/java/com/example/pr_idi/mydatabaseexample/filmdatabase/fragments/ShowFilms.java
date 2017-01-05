@@ -11,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.ShowFilmsAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
+
+import java.util.List;
 
 public class ShowFilms extends Fragment
 {
@@ -37,6 +41,25 @@ public class ShowFilms extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        List<Film> listFilm = database.getAllFilms();
+        //Filter options
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            String actor = bundle.getString("Actor", null);
+            long id = bundle.getLong("id", -1);
+            for(int i = 0; i < listFilm.size();++i){
+                Film film = listFilm.get(i);
+                if(actor != null && !actor.isEmpty()){
+                    if(!film.getProtagonist().equalsIgnoreCase(actor)) listFilm.remove(i);
+                }
+                if(id != -1){
+                    if(film.getId() != id) listFilm.remove(i);
+                }
+            }
+
+        }
+        ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(listFilm);
+        recyclerView.setAdapter(showFilmsAdapter);
         return view;
     }
 

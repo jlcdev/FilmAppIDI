@@ -61,6 +61,8 @@ public class EditRate extends Fragment
                     mFilm.setYear(finalFilm.getYear());
                     mFilm.setCritics_rate(num);
                     database.editFilm(mFilm);
+                    //Go to film list screen
+                    parentListener.onFragmentInteraction(ShowFilms.TAG, new Bundle());
                 }
             });
         }
