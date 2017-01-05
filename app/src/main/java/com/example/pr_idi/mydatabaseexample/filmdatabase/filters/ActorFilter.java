@@ -4,8 +4,10 @@ import android.widget.Filter;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchActorAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,10 +35,11 @@ public class ActorFilter extends Filter
             List<Film> filterList = new ArrayList<>();
             int size = this.originalFilmList.size();
             for(int i = 0; i < size; ++i){
-                if(this.originalFilmList.get(i).getProtagonist().contains(constraint)){
+                if(this.originalFilmList.get(i).getProtagonist().toLowerCase().contains(constraint.toString().toLowerCase())){
                     filterList.add(this.originalFilmList.get(i));
                 }
             }
+
             results.count=filterList.size();
             results.values=filterList;
         }

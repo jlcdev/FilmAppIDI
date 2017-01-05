@@ -17,11 +17,13 @@ import android.widget.ListView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchActorAdapter;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorComparator;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorFilter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SearchByActor extends Fragment
@@ -50,12 +52,12 @@ public class SearchByActor extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_actor);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_actor);
         films = database.getAllFilms();
+        Collections.sort(films,new ActorComparator());
 
         //Set autocomplete values
         String[] proposals = new String[films.size()];
         for(int i=0; i < films.size(); ++i){
             proposals[i] = films.get(i).getProtagonist();
-            System.out.println("a ver cojones: "+ films.get(i).toString());
         }
         ArrayAdapter<String> proposalAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, proposals);
         autoCompleteTextView.setAdapter(proposalAdapter);
@@ -67,13 +69,14 @@ public class SearchByActor extends Fragment
         //filtering list values with autocomplete field information
         searchFieldWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
                 ActorFilter filter = searchActorAdapter.getFilter();
                 filter.setOriginalFilmList(films);
                 filter.filter(s);
             }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
             @Override
             public void afterTextChanged(Editable s){}
         };
