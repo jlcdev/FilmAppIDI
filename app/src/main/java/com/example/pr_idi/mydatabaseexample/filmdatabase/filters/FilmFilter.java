@@ -17,7 +17,7 @@ public class FilmFilter extends Filter
 {
     private List<Film> originalFilmList;
     private SearchFilmAdapter searchFilmAdapter;
-
+    private List<Film> filterList;
     public FilmFilter(SearchFilmAdapter searchFilmAdapter){
         this.searchFilmAdapter = searchFilmAdapter;
     }
@@ -31,7 +31,7 @@ public class FilmFilter extends Filter
     {
         FilterResults results = new FilterResults();
         if(constraint != null && constraint.length() > 0){
-            List<Film> filterList = new ArrayList<>();
+            filterList = new ArrayList<>();
             int size = this.originalFilmList.size();
             for(int i = 0; i < size; ++i){
                 if(this.originalFilmList.get(i).getTitle().toLowerCase().contains(constraint.toString().toLowerCase())){
@@ -45,6 +45,7 @@ public class FilmFilter extends Filter
             results.count = this.originalFilmList.size();
             results.values = this.originalFilmList;
         }
+        //this.publishResults(constraint,results);
         return results;
     }
 
@@ -52,5 +53,10 @@ public class FilmFilter extends Filter
     protected void publishResults(CharSequence constraint, FilterResults results)
     {
         this.searchFilmAdapter.updateAdapter((List<Film>)results.values);
+    }
+
+    public List<Film> getListFiltered()
+    {
+        return filterList;
     }
 }

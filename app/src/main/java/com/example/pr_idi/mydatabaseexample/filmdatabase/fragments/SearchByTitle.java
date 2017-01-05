@@ -32,6 +32,7 @@ public class SearchByTitle extends Fragment
     public static final int TAG = 0;
     private OnFragmentInteractionListener parentListener;
     private ListView listView;
+    private View view;
     private AutoCompleteTextView autoCompleteTextView;
     private FilmData database;
     private TextWatcher searchFieldWatcher;
@@ -49,7 +50,7 @@ public class SearchByTitle extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_by_title, container, false);
+        view = inflater.inflate(R.layout.fragment_search_by_title, container, false);
         listView = (ListView) view.findViewById(R.id.list_search_title);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_title);
         films = database.getAllFilms();
@@ -68,16 +69,21 @@ public class SearchByTitle extends Fragment
         listView.setAdapter(searchFilmAdapter);
 
         //filtering list values with autocomplete field information
-        searchFieldWatcher = new TextWatcher() {
+        searchFieldWatcher = new TextWatcher()
+        {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 FilmFilter filter = searchFilmAdapter.getFilter();
                 filter.setOriginalFilmList(films);
                 filter.filter(s);
+                //
+                //searchFilmAdapter.notifyDataSetChanged();
             }
+
             @Override
             public void afterTextChanged(Editable s){}
         };
@@ -101,7 +107,20 @@ public class SearchByTitle extends Fragment
     }
 
     public void delete(final int position){
-        final Film film = this.films.get(position);
+        //final Film film = this.films.get(position);
+        final Film film = (Film) searchFilmAdapter.getItem(position);
+        int realPos = -1;
+
+        //Encontrar la posicion real en la lista
+        for(int i = 0; i<films.size(); i++)
+        {
+            if (film.equals(films.get(i)))
+            {
+                realPos = i;
+                break;
+            }
+        }
+        final int realPos2 = realPos;
         AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
         adb.setTitle("Esborrar?");
         adb.setMessage("Estàs segur d'el·liminar la pel·lícula "+ film.getTitle());
@@ -112,7 +131,7 @@ public class SearchByTitle extends Fragment
             public void onClick(DialogInterface dialog, int which)
             {
                 database.deleteFilm(film);
-                films.remove(position);
+                films.remove(realPos2);
                 searchFilmAdapter.updateAdapter(films);
                 searchFilmAdapter.notifyDataSetChanged();
                 //Vaciamos la caja de búsqueda
