@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
@@ -18,7 +21,6 @@ import android.widget.ListView;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchFilmAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmFilter;
-import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorActor;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
@@ -67,6 +69,18 @@ public class SearchByTitle extends Fragment
         //Set list values
         searchFilmAdapter = new SearchFilmAdapter(this, view.getContext(), films);
         listView.setAdapter(searchFilmAdapter);
+        listView.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Log.e("OMG", "ESTO PARECE LANZARSE");
+                Film film = (Film) searchFilmAdapter.getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", film.getId());
+                parentListener.onFragmentInteraction(ShowFilms.TAG, bundle);
+            }
+        });
 
         //filtering list values with autocomplete field information
         searchFieldWatcher = new TextWatcher()
