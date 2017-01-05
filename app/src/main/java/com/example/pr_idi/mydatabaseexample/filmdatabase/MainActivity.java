@@ -1,6 +1,8 @@
 package com.example.pr_idi.mydatabaseexample.filmdatabase;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate;
@@ -24,6 +28,8 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnFragmentInteractionListener {
 
     private FilmData filmData;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         onFragmentInteraction(0, new Bundle());
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
@@ -106,15 +113,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
         switch(fragCode){
             case SearchByTitle.TAG:
+                navigationView.getMenu().getItem(0).setChecked(true);
                 fragment = SearchByTitle.newInstance(bundle, filmData);
                 break;
             case SearchByActor.TAG:
+                navigationView.getMenu().getItem(1).setChecked(true);
                 fragment = SearchByActor.newInstance(bundle, filmData);
                 break;
             case ShowFilms.TAG:
+                navigationView.getMenu().getItem(2).setChecked(true);
                 fragment = ShowFilms.newInstance(bundle, filmData);
                 break;
             case AddFilm.TAG:
+                navigationView.getMenu().getItem(3).setChecked(true);
                 fragment = AddFilm.newInstance(bundle, filmData);
                 break;
             case EditRate.TAG:
