@@ -15,9 +15,10 @@ import java.util.List;
  * Created by javierlopezcalderon on 5/1/17.
  */
 
-public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.FilmViewHolder>
+public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.FilmViewHolder> implements View.OnClickListener
 {
     private List<Film> filmList;
+    private View.OnClickListener listener;
 
     public ShowFilmsAdapter(List<Film> filmList) {
         this.filmList = filmList;
@@ -27,12 +28,14 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
     public ShowFilmsAdapter.FilmViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_show_films, parent, false);
+        view.setOnClickListener(this);
         return new FilmViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ShowFilmsAdapter.FilmViewHolder holder, int pos)
     {
+        holder.id = filmList.get(pos).getId();
         holder.title.setText(filmList.get(pos).getTitle());
         holder.director.setText(filmList.get(pos).getDirector());
         holder.actor.setText(filmList.get(pos).getProtagonist());
@@ -52,8 +55,18 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener != null) listener.onClick(view);
+    }
+
     public static class FilmViewHolder extends RecyclerView.ViewHolder
     {
+        Long id;
         TextView title;
         TextView director;
         TextView actor;
@@ -70,6 +83,10 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
             country = (TextView)itemView.findViewById(R.id.show_films_field_country);
             year = (TextView)itemView.findViewById(R.id.show_films_field_year);
             rate = (TextView)itemView.findViewById(R.id.show_films_field_rate);
+        }
+
+        public Long getId() {
+            return id;
         }
     }
 }

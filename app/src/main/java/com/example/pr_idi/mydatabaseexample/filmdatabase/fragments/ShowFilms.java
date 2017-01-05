@@ -23,6 +23,7 @@ public class ShowFilms extends Fragment
     public static final int TAG = 2;
     private OnFragmentInteractionListener parentListener;
     private FilmData database;
+    private RecyclerView recyclerView;
 
     public ShowFilms(){}
 
@@ -37,7 +38,7 @@ public class ShowFilms extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_show_films, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.show_films_list);
+        recyclerView = (RecyclerView) view.findViewById(R.id.show_films_list);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -59,6 +60,15 @@ public class ShowFilms extends Fragment
 
         }
         ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(listFilm);
+        showFilmsAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowFilmsAdapter.FilmViewHolder fvh = (ShowFilmsAdapter.FilmViewHolder) recyclerView.getChildViewHolder(v);
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", fvh.getId());
+                parentListener.onFragmentInteraction(EditRate.TAG, bundle);
+            }
+        });
         recyclerView.setAdapter(showFilmsAdapter);
         return view;
     }
@@ -78,5 +88,4 @@ public class ShowFilms extends Fragment
         parentListener = null;
 
     }
-
 }
