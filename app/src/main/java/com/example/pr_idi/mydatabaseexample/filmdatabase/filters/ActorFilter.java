@@ -4,10 +4,8 @@ import android.widget.Filter;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchActorAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
-import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorComparator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

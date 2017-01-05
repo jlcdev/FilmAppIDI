@@ -34,7 +34,7 @@ public class FilmFilter extends Filter
             List<Film> filterList = new ArrayList<>();
             int size = this.originalFilmList.size();
             for(int i = 0; i < size; ++i){
-                if(this.originalFilmList.get(i).getTitle().contains(constraint)){
+                if(this.originalFilmList.get(i).getTitle().toLowerCase().contains(constraint.toString().toLowerCase())){
                     filterList.add(this.originalFilmList.get(i));
                 }
             }

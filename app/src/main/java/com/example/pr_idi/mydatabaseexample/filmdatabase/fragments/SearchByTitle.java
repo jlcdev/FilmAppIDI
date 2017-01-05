@@ -20,10 +20,12 @@ import android.widget.ListView;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchFilmAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmFilter;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparator;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
+import java.util.Collections;
 import java.util.List;
 
 public class SearchByTitle extends Fragment
@@ -52,6 +54,7 @@ public class SearchByTitle extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_title);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_title);
         films = database.getAllFilms();
+        Collections.sort(films, new MyComparator());
 
         //Set autocomplete values
         String[] proposals = new String[films.size()];
@@ -68,13 +71,14 @@ public class SearchByTitle extends Fragment
         //filtering list values with autocomplete field information
         searchFieldWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
                 FilmFilter filter = searchFilmAdapter.getFilter();
                 filter.setOriginalFilmList(films);
                 filter.filter(s);
             }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count){}
             @Override
             public void afterTextChanged(Editable s){}
         };

@@ -2,10 +2,8 @@ package com.example.pr_idi.mydatabaseexample.filmdatabase.fragments;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -17,7 +15,7 @@ import android.widget.ListView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchActorAdapter;
-import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorComparator;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparator;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.ActorFilter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
@@ -52,7 +50,7 @@ public class SearchByActor extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_actor);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_actor);
         films = database.getAllFilms();
-        Collections.sort(films,new ActorComparator());
+        Collections.sort(films,new MyComparator());
 
         //Set autocomplete values
         String[] proposals = new String[films.size()];
