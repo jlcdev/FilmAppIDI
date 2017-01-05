@@ -13,14 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.ListView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.SearchFilmAdapter;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmFilter;
-import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparator;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorActor;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.MyComparatorTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
@@ -54,7 +53,7 @@ public class SearchByTitle extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_title);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_title);
         films = database.getAllFilms();
-        Collections.sort(films, new MyComparator());
+        Collections.sort(films, new MyComparatorTitle());
 
         //Set autocomplete values
         String[] proposals = new String[films.size()];
@@ -116,7 +115,10 @@ public class SearchByTitle extends Fragment
                 films.remove(position);
                 searchFilmAdapter.updateAdapter(films);
                 searchFilmAdapter.notifyDataSetChanged();
+                //Vaciamos la caja de búsqueda
+                autoCompleteTextView.setText("");
             }});
+
         adb.show();
     }
 }
