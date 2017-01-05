@@ -16,6 +16,7 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByActor;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.ShowFilms;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
@@ -77,20 +78,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_search_title) {
-            onFragmentInteraction(0, new Bundle());
-        } else if (id == R.id.nav_search_actor) {
-            onFragmentInteraction(1, new Bundle());
-        } else if (id == R.id.nav_film_list) {
-            onFragmentInteraction(2, new Bundle());
-        } else if (id == R.id.nav_add_film) {
-            onFragmentInteraction(3, new Bundle());
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case R.id.nav_search_title:
+                onFragmentInteraction(SearchByTitle.TAG, new Bundle());
+                break;
+            case R.id.nav_search_actor:
+                onFragmentInteraction(SearchByActor.TAG, new Bundle());
+                break;
+            case R.id.nav_film_list:
+                onFragmentInteraction(ShowFilms.TAG, new Bundle());
+                break;
+            case R.id.nav_add_film:
+                onFragmentInteraction(AddFilm.TAG, new Bundle());
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -107,8 +111,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case SearchByActor.TAG:
                 fragment = SearchByActor.newInstance(bundle, filmData);
                 break;
-            case 2:
-                fragment = SearchByTitle.newInstance(bundle, filmData);
+            case ShowFilms.TAG:
+                fragment = ShowFilms.newInstance(bundle, filmData);
                 break;
             case AddFilm.TAG:
                 fragment = AddFilm.newInstance(bundle, filmData);
@@ -125,13 +129,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
         filmData.open();
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
         filmData.close();
     }
