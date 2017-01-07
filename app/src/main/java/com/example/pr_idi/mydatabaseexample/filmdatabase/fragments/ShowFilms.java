@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ShowFilms extends Fragment
 {
-    public static final int TAG = 2;
+    public static final String TAG = "ShowFilms";
     private OnFragmentInteractionListener parentListener;
     private FilmData database;
     private RecyclerView recyclerView;

@@ -19,7 +19,7 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
 public class EditRate extends Fragment
 {
-    public static final int TAG = 4;
+    public static final String TAG = "EditRate";
     private OnFragmentInteractionListener parentListener;
     private FilmData database;
 

@@ -33,7 +33,7 @@ import java.util.List;
 
 public class SearchByTitle extends Fragment
 {
-    public static final int TAG = 0;
+    public static final String TAG = "SearchByTitle";
     private OnFragmentInteractionListener parentListener;
     private ListView listView;
     private View view;

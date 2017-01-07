@@ -31,7 +31,7 @@ import java.util.List;
 
 public class SearchByActor extends Fragment
 {
-    public static final int TAG = 1;
+    public static final String TAG = "SearchByActor";
     private OnFragmentInteractionListener parentListener;
     private ListView listView;
     private AutoCompleteTextView autoCompleteTextView;

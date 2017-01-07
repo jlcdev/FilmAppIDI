@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class AddFilm extends Fragment implements View.OnClickListener
 {
-    public static final int TAG = 3;
+    public static final String TAG = "AddFilm";
     public static int LIMIT_FILM_YEAR = 1885;
     private OnFragmentInteractionListener parentListener;
     private EditText title;

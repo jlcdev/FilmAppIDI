@@ -1,10 +1,9 @@
 package com.example.pr_idi.mydatabaseexample.filmdatabase;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate;
@@ -29,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FilmData filmData;
     private NavigationView navigationView;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,39 +46,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        onFragmentInteraction(0, new Bundle());
+        onFragmentInteraction(SearchByTitle.TAG, new Bundle());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
         }
+        if (fragmentManager.getBackStackEntryCount() > 0) fragmentManager.popBackStack();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
+        if(id == R.id.action_settings) return true;
         return super.onOptionsItemSelected(item);
     }
 
@@ -108,34 +102,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onFragmentInteraction(int fragCode, Bundle bundle) {
-        FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
-        Fragment fragment = null;
-        switch(fragCode){
-            case SearchByTitle.TAG:
-                navigationView.getMenu().getItem(0).setChecked(true);
-                fragment = SearchByTitle.newInstance(bundle, filmData);
-                break;
+    public void onFragmentInteraction(String TAG, Bundle bundle) {
+        fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Fragment fragment;
+        switch(TAG){
             case SearchByActor.TAG:
                 navigationView.getMenu().getItem(1).setChecked(true);
                 fragment = SearchByActor.newInstance(bundle, filmData);
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(SearchByActor.TAG);
                 break;
             case ShowFilms.TAG:
                 navigationView.getMenu().getItem(2).setChecked(true);
                 fragment = ShowFilms.newInstance(bundle, filmData);
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(ShowFilms.TAG);
                 break;
             case AddFilm.TAG:
                 navigationView.getMenu().getItem(3).setChecked(true);
                 fragment = AddFilm.newInstance(bundle, filmData);
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(AddFilm.TAG);
                 break;
             case EditRate.TAG:
                 fragment = EditRate.newInstance(bundle, filmData);
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(EditRate.TAG);
+                break;
+            default:
+                navigationView.getMenu().getItem(0).setChecked(true);
+                fragment = SearchByTitle.newInstance(bundle, filmData);
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(SearchByTitle.TAG);
                 break;
         }
-        if(fragment == null) {
-            fragment = SearchByTitle.newInstance(bundle, filmData);
-        }
-        transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
 

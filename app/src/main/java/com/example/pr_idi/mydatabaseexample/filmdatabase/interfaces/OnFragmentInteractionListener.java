@@ -7,5 +7,5 @@ import android.os.Bundle;
  */
 
 public interface OnFragmentInteractionListener {
-    void onFragmentInteraction(int fragCode, Bundle bundle);
+    void onFragmentInteraction(String TAG, Bundle bundle);
 }
