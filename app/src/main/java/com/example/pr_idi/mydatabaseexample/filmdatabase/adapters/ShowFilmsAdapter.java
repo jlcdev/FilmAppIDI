@@ -38,11 +38,10 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
     {
         int critical = filmList.get(pos).getCritics_rate();
         holder.id = filmList.get(pos).getId();
-        holder.title.setText(filmList.get(pos).getTitle());
-        holder.director.setText("Director: "+filmList.get(pos).getDirector());
+        holder.title.setText(filmList.get(pos).getTitle() + " (" + filmList.get(pos).getYear() + ")");
+        holder.director.setText(filmList.get(pos).getDirector());
         holder.actor.setText(filmList.get(pos).getProtagonist());
         holder.country.setText(filmList.get(pos).getCountry());
-        holder.year.setText("" + filmList.get(pos).getYear());
         holder.rate.setText("" + critical);
 
         switch(critical)
@@ -95,11 +94,11 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
     public static class FilmViewHolder extends RecyclerView.ViewHolder
     {
         Long id;
+        int year;
         TextView title;
         TextView director;
         TextView actor;
         TextView country;
-        TextView year;
         TextView rate;
 
         FilmViewHolder(View itemView)
@@ -109,7 +108,6 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
             director = (TextView)itemView.findViewById(R.id.show_films_field_director);
             actor = (TextView)itemView.findViewById(R.id.show_films_field_actor);
             country = (TextView)itemView.findViewById(R.id.show_films_field_country);
-            year = (TextView)itemView.findViewById(R.id.show_films_field_year);
             rate = (TextView)itemView.findViewById(R.id.show_films_field_rate);
         }
 
