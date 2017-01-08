@@ -75,7 +75,6 @@ public class SearchByTitle extends Fragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Log.e("OMG", "ESTO PARECE LANZARSE");
                 Film film = (Film) searchFilmAdapter.getItem(position);
                 Bundle bundle = new Bundle();
                 bundle.putLong("id", film.getId());
