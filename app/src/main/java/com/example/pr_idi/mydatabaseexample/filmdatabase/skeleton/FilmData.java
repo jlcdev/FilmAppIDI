@@ -43,79 +43,68 @@ public class FilmData {
 
     public Film createFilm(String title, String director, String actor, String country, int year, int rate) {
         ContentValues values = new ContentValues();
-        Log.d("Creating", "Creating " + title + " " + director);
-
-        // Add data: Note that this method only provides title and director
-        // Must modify the method to add the full data
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_DIRECTOR, director);
-
-        // Invented data
         values.put(MySQLiteHelper.COLUMN_COUNTRY, country);
         values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, year);
         values.put(MySQLiteHelper.COLUMN_PROTAGONIST, actor);
         values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, rate);
 
-        // Actual insertion of the data using the values variable
         long insertId = database.insert(MySQLiteHelper.TABLE_FILMS, null, values);
-
-        // Main activity calls this procedure to create a new film
-        // and uses the result to update the listview.
-        // Therefore, we need to get the data from the database
-        // (you can use this as a query example)
-        // to feed the view.
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS, allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         Film newFilm = cursorToFilm(cursor);
-
-        // Do not forget to close the cursor
         cursor.close();
-
-        // Return the book
         return newFilm;
     }
 
-    public void deleteFilm(Film film) {
-        long id = film.getId();
-        System.out.println("Film deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_FILMS, MySQLiteHelper.COLUMN_ID
-                + " = " + id, null);
+    public void deleteFilm(Film film)
+    {
+        database.delete(MySQLiteHelper.TABLE_FILMS, MySQLiteHelper.COLUMN_ID + " = " + film.getId(), null);
     }
 
-    public List<Film> getAllFilms() {
+    public List<Film> getAllFilms()
+    {
         List<Film> comments = new ArrayList<>();
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, null, null, null, null, null);
-
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS, allColumns, null, null, null, null, null);
         cursor.moveToFirst();
-
-        while (!cursor.isAfterLast()) {
+        while (!cursor.isAfterLast())
+        {
             Film comment = cursorToFilm(cursor);
             comments.add(comment);
             cursor.moveToNext();
         }
-        // make sure to close the cursor
         cursor.close();
         return comments;
     }
 
     public Film getFilm(long id){
-        for(Film f : getAllFilms()){
-            if(f.getId() == id) return f;
-        }
-        return null;
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS, allColumns, MySQLiteHelper.COLUMN_ID + " = " + id, null, null, null, null);
+        cursor.moveToFirst();
+        Film newFilm = cursorToFilm(cursor);
+        cursor.close();
+        return newFilm;
     }
 
-    public Film editFilm(Film film){
-        deleteFilm(film);
-        return createFilm(film.getTitle(), film.getDirector(), film.getProtagonist(), film.getCountry(), film.getYear(), film.getCritics_rate());
+    public Film updateFilm(Film film){
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_TITLE, film.getTitle());
+        values.put(MySQLiteHelper.COLUMN_DIRECTOR, film.getDirector());
+        values.put(MySQLiteHelper.COLUMN_PROTAGONIST, film.getProtagonist());
+        values.put(MySQLiteHelper.COLUMN_COUNTRY, film.getCountry());
+        values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, film.getYear());
+        values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, film.getCritics_rate());
+
+        database.update(MySQLiteHelper.TABLE_FILMS, values, MySQLiteHelper.COLUMN_ID + " = " + film.getId(), null);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS, allColumns, MySQLiteHelper.COLUMN_ID + " = " + film.getId(), null, null, null, null);
+        cursor.moveToFirst();
+        Film newFilm = cursorToFilm(cursor);
+        cursor.close();
+        return newFilm;
     }
 
-    private Film cursorToFilm(Cursor cursor) {
+    private Film cursorToFilm(Cursor cursor)
+    {
         Film film = new Film();
         film.setId(cursor.getLong(0));
         film.setTitle(cursor.getString(1));

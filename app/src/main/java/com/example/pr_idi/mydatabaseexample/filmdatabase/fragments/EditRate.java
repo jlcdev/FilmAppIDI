@@ -35,6 +35,10 @@ public class EditRate extends Fragment implements View.OnClickListener
         EditRate editRate = new EditRate();
         editRate.database = filmData;
         editRate.setArguments(bundle);
+        if(bundle != null){
+            long filmId = bundle.getLong(KEY_SAVED_ID, -1L);
+            editRate.film = filmData.getFilm(filmId);
+        }
         return editRate;
     }
 
@@ -47,30 +51,9 @@ public class EditRate extends Fragment implements View.OnClickListener
         view.findViewById(R.id.edit_rate_button_down).setOnClickListener(this);
         view.findViewById(R.id.edit_rate_button_up).setOnClickListener(this);
 
-        if(savedInstanceState != null){
-            //Restore
-            Log.e("ERROR","STATE RESTORED");
-
-            findFilm(savedInstanceState.getLong(KEY_SAVED_ID, -1));
-        }else{
-            //New Instance
-            Log.e("ERROR","NORMAL ENTRY");
-            Bundle bundle = getArguments();
-            findFilm(bundle.getLong(KEY_SAVED_ID, -1));
-        }
-        return view;
-    }
-
-    private void findFilm(Long id){
         textView.setText("0");
-        if(id != null && id != -1) film = database.getFilm(id);
         if(film != null) textView.setText(""+film.getCritics_rate());
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-        outState.putLong(KEY_SAVED_ID, getArguments().getLong(KEY_SAVED_ID, -1));
+        return view;
     }
 
     @Override
@@ -103,7 +86,7 @@ public class EditRate extends Fragment implements View.OnClickListener
             case R.id.edit_rate_button_save:
                 if(film != null){
                     film.setCritics_rate(num);
-                    database.editFilm(film);
+                    database.updateFilm(film);
                     parentListener.onFragmentInteraction(ShowFilms.TAG, new Bundle());
                 }
                 break;

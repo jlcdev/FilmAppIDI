@@ -22,15 +22,21 @@ public class ShowFilms extends Fragment
 {
     public static final String TAG = "ShowFilms";
     private OnFragmentInteractionListener parentListener;
-    private FilmData database;
     private RecyclerView recyclerView;
+    private List<Film> listFilm;
+    private String actor;
+    private long id;
 
     public ShowFilms(){}
 
     public static ShowFilms newInstance(Bundle bundle, FilmData filmData){
         ShowFilms showFilms = new ShowFilms();
-        showFilms.database = filmData;
         showFilms.setArguments(bundle);
+        showFilms.listFilm = filmData.getAllFilms();
+        if(bundle != null){
+            showFilms.id = bundle.getLong("id", -1L);
+            showFilms.actor = bundle.getString("actor", null);
+        }
         return showFilms;
     }
 
@@ -42,22 +48,12 @@ public class ShowFilms extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        List<Film> listFilm = database.getAllFilms();
         //Filter options
-        Bundle bundle = this.getArguments();
-        if(bundle != null){
-            String actor = bundle.getString("actor", null);
-            long id = bundle.getLong("id", -1);
-            for(int i = 0; i < listFilm.size();++i){
-                Film film = listFilm.get(i);
-                if(actor != null && !actor.isEmpty()){
-                    if(!film.getProtagonist().equalsIgnoreCase(actor)) listFilm.remove(i);
-                }
-                if(id != -1){
-                    if(film.getId() != id) listFilm.remove(i);
-                }
-            }
-
+        for(int i = 0; i < listFilm.size(); ++i)
+        {
+            Film film = listFilm.get(i);
+            if(actor != null && !actor.isEmpty() && !film.getProtagonist().equalsIgnoreCase(actor)) listFilm.remove(i);
+            if(id != -1 && film.getId() != id) listFilm.remove(i);
         }
         ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(listFilm);
         showFilmsAdapter.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +82,5 @@ public class ShowFilms extends Fragment
     {
         super.onDetach();
         parentListener = null;
-
     }
 }
