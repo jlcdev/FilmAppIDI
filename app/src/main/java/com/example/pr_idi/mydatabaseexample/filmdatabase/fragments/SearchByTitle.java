@@ -138,7 +138,6 @@ public class SearchByTitle extends Fragment
         AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
         adb.setTitle("Esborrar?");
         adb.setMessage("Estàs segur d'el·liminar la pel·lícula "+ film.getTitle());
-        final int positionToRemove = position;
         adb.setNegativeButton("Cancel", null);
         adb.setPositiveButton("Ok", new AlertDialog.OnClickListener()
         {
@@ -150,8 +149,8 @@ public class SearchByTitle extends Fragment
                 searchFilmAdapter.notifyDataSetChanged();
                 //Vaciamos la caja de búsqueda
                 autoCompleteTextView.setText("");
-            }});
-
+            }
+        });
         adb.show();
     }
 }
