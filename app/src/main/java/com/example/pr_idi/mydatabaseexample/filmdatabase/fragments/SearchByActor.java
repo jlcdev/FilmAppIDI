@@ -58,6 +58,7 @@ public class SearchByActor extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_actor);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_actor);
         films = database.getAllFilms();
+        //removeRepeated();
         Collections.sort(films,new MyComparatorActor());
 
         //Set autocomplete values
@@ -114,5 +115,22 @@ public class SearchByActor extends Fragment
     {
         super.onDetach();
         parentListener = null;
+    }
+
+    //Sé que estoy eliminando peliculas de la lista pero dado que la lista solamente va a ser utilizada para mostrar a los actores es funcional
+    private void removeRepeated()
+    {
+        int size = this.films.size();
+        for(int i=0;i<size;i++)
+        {
+            for(int j=i+1;j<size;j++)
+            {
+                if(films.get(i).getProtagonist().equals(films.get(j).getProtagonist()))
+                {
+                    films.remove(i);
+                    size = films.size();
+                }
+            }
+        }
     }
 }
