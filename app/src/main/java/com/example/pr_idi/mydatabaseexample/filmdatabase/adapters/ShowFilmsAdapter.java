@@ -1,5 +1,6 @@
 package com.example.pr_idi.mydatabaseexample.filmdatabase.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,13 +36,40 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
     @Override
     public void onBindViewHolder(ShowFilmsAdapter.FilmViewHolder holder, int pos)
     {
+        int critical = filmList.get(pos).getCritics_rate();
         holder.id = filmList.get(pos).getId();
         holder.title.setText(filmList.get(pos).getTitle());
-        holder.director.setText(filmList.get(pos).getDirector());
+        holder.director.setText("Director: "+filmList.get(pos).getDirector());
         holder.actor.setText(filmList.get(pos).getProtagonist());
         holder.country.setText(filmList.get(pos).getCountry());
         holder.year.setText("" + filmList.get(pos).getYear());
-        holder.rate.setText("" + filmList.get(pos).getCritics_rate());
+        holder.rate.setText("" + critical);
+
+        switch(critical)
+        {
+            case 0  :   holder.rate.setBackgroundColor(Color.rgb(255, 0, 0));
+                        break;
+            case 1  :   holder.rate.setBackgroundColor(Color.rgb(225, 25, 5));
+                        break;
+            case 2  :   holder.rate.setBackgroundColor(Color.rgb(200, 50, 5));
+                        break;
+            case 3  :   holder.rate.setBackgroundColor(Color.rgb(175, 75, 5));
+                        break;
+            case 4  :   holder.rate.setBackgroundColor(Color.rgb(150, 100, 5));
+                        break;
+            case 5  :   holder.rate.setBackgroundColor(Color.rgb(125, 125, 5));
+                        break;
+            case 6  :   holder.rate.setBackgroundColor(Color.rgb(100, 150, 5));
+                        break;
+            case 7  :   holder.rate.setBackgroundColor(Color.rgb(75, 175, 5));
+                        break;
+            case 8  :   holder.rate.setBackgroundColor(Color.rgb(50, 200, 5));
+                        break;
+            case 9  :   holder.rate.setBackgroundColor(Color.rgb(25, 225, 5));
+                        break;
+            case 10  :   holder.rate.setBackgroundColor(Color.rgb(0, 255, 0));
+                        break;
+        }
     }
 
     @Override

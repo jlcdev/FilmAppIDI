@@ -58,7 +58,7 @@ public class SearchByActor extends Fragment
         listView = (ListView) view.findViewById(R.id.list_search_actor);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_actor);
         films = database.getAllFilms();
-        //removeRepeated();
+        removeRepeated();
         Collections.sort(films,new MyComparatorActor());
 
         //Set autocomplete values

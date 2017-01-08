@@ -1,41 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
 
-    <TextView
-        android:text="Títol"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_title" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="191dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.98">
 
-    <TextView
-        android:text="Director"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_director" />
+        <TextView
+            android:text="Títol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_films_field_title"
+            android:textStyle="bold"/>
 
-    <TextView
-        android:text="Actor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_actor" />
+        <TextView
+            android:text="Director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_films_field_director" />
 
-    <TextView
-        android:text="País"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_country" />
+        <TextView
+            android:text="Actor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_films_field_actor" />
 
-    <TextView
-        android:text="Any"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_year" />
+        <TextView
+            android:text="País"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_films_field_country" />
 
-    <TextView
-        android:text="Valoració"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/show_films_field_rate" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="141dp"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:text="Valoració"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_films_field_rate"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:background="#000000"
+            />
+
+        <TextView
+            android:text="Any"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="20sp"
+            android:textAlignment="textEnd"
+            android:id="@+id/show_films_field_year" />
+    </LinearLayout>
+
 </LinearLayout>
