@@ -43,36 +43,25 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
         holder.actor.setText(filmList.get(pos).getProtagonist());
         holder.country.setText(filmList.get(pos).getCountry());
         holder.rate.setText("" + critical);
-
         switch(critical)
         {
-            case 0  :   holder.rate.setBackgroundColor(Color.rgb(255, 0, 0));
-                        break;
-            case 1  :   holder.rate.setBackgroundColor(Color.rgb(225, 25, 5));
-                        break;
-            case 2  :   holder.rate.setBackgroundColor(Color.rgb(200, 50, 5));
-                        break;
-            case 3  :   holder.rate.setBackgroundColor(Color.rgb(175, 75, 5));
-                        break;
-            case 4  :   holder.rate.setBackgroundColor(Color.rgb(150, 100, 5));
-                        break;
-            case 5  :   holder.rate.setBackgroundColor(Color.rgb(125, 125, 5));
-                        break;
-            case 6  :   holder.rate.setBackgroundColor(Color.rgb(100, 150, 5));
-                        break;
-            case 7  :   holder.rate.setBackgroundColor(Color.rgb(75, 175, 5));
-                        break;
-            case 8  :   holder.rate.setBackgroundColor(Color.rgb(50, 200, 5));
-                        break;
-            case 9  :   holder.rate.setBackgroundColor(Color.rgb(25, 225, 5));
-                        break;
-            case 10  :   holder.rate.setBackgroundColor(Color.rgb(0, 255, 0));
-                        break;
+            case 0: holder.rate.setBackgroundColor(Color.rgb(255, 0, 0)); break;
+            case 1: holder.rate.setBackgroundColor(Color.rgb(225, 25, 5)); break;
+            case 2: holder.rate.setBackgroundColor(Color.rgb(200, 50, 5)); break;
+            case 3: holder.rate.setBackgroundColor(Color.rgb(175, 75, 5)); break;
+            case 4: holder.rate.setBackgroundColor(Color.rgb(150, 100, 5)); break;
+            case 5: holder.rate.setBackgroundColor(Color.rgb(125, 125, 5)); break;
+            case 6: holder.rate.setBackgroundColor(Color.rgb(100, 150, 5)); break;
+            case 7: holder.rate.setBackgroundColor(Color.rgb(75, 175, 5)); break;
+            case 8: holder.rate.setBackgroundColor(Color.rgb(50, 200, 5)); break;
+            case 9: holder.rate.setBackgroundColor(Color.rgb(25, 225, 5)); break;
+            case 10: holder.rate.setBackgroundColor(Color.rgb(0, 255, 0)); break;
         }
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return filmList.size();
     }
 
@@ -82,19 +71,20 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
+    public void setOnClickListener(View.OnClickListener listener)
+    {
         this.listener = listener;
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
         if(listener != null) listener.onClick(view);
     }
 
     public static class FilmViewHolder extends RecyclerView.ViewHolder
     {
         Long id;
-        int year;
         TextView title;
         TextView director;
         TextView actor;
@@ -111,7 +101,8 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
             rate = (TextView)itemView.findViewById(R.id.show_films_field_rate);
         }
 
-        public Long getId() {
+        public Long getId()
+        {
             return id;
         }
     }

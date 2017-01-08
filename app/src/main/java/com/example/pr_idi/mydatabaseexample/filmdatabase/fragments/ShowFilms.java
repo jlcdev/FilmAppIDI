@@ -93,8 +93,8 @@ public class ShowFilms extends Fragment
 
     private List<Film> filterById(long id, List<Film> filmList)
     {
-        if(id == -1L) return filmList;
         List<Film> cloned = cloneListFilm(filmList);
+        if(id == -1L) return cloned;
         List<Film> deleteCandidates = new ArrayList<>();
         for(Film f : cloned){
             if(f.getId() != id) deleteCandidates.add(f);
@@ -107,8 +107,8 @@ public class ShowFilms extends Fragment
 
     private List<Film> filterByActor(String actor, List<Film> filmList)
     {
-        if(actor == null || actor.isEmpty()) return filmList;
         List<Film> cloned = cloneListFilm(filmList);
+        if(actor == null || actor.isEmpty()) return cloned;
         List<Film> deleteCandidates = new ArrayList<>();
         for(Film f : cloned){
             if(!f.getProtagonist().equalsIgnoreCase(actor)) deleteCandidates.add(f);
