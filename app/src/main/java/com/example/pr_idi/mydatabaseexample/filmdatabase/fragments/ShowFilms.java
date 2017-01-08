@@ -16,6 +16,8 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentIn
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ShowFilms extends Fragment
@@ -24,6 +26,7 @@ public class ShowFilms extends Fragment
     private OnFragmentInteractionListener parentListener;
     private RecyclerView recyclerView;
     private List<Film> listFilm;
+    private List<Film> filteredList;
     private String actor;
     private long id;
 
@@ -33,6 +36,7 @@ public class ShowFilms extends Fragment
         ShowFilms showFilms = new ShowFilms();
         showFilms.setArguments(bundle);
         showFilms.listFilm = filmData.getAllFilms();
+        showFilms.filteredList = new ArrayList<>();
         if(bundle != null){
             showFilms.id = bundle.getLong("id", -1L);
             showFilms.actor = bundle.getString("actor", null);
@@ -48,14 +52,11 @@ public class ShowFilms extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        //Filter options
-        for(int i = 0; i < listFilm.size(); ++i)
-        {
-            Film film = listFilm.get(i);
-            if(actor != null && !actor.isEmpty() && !film.getProtagonist().equalsIgnoreCase(actor)) listFilm.remove(i);
-            if(id != -1 && film.getId() != id) listFilm.remove(i);
-        }
-        ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(listFilm);
+        //Filter data
+        filteredList = new ArrayList<>();
+        filteredList = filterById(id, listFilm);
+        filteredList = filterByActor(actor, filteredList);
+        ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(filteredList);
         showFilmsAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +68,50 @@ public class ShowFilms extends Fragment
         });
         recyclerView.setAdapter(showFilmsAdapter);
         return view;
+    }
+
+    private List<Film> cloneListFilm(List<Film> original){
+        List<Film> response = new ArrayList<>();
+        for(Film f : original){
+            Film x = new Film();
+            x.setId(f.getId());
+            x.setTitle(f.getTitle());
+            x.setProtagonist(f.getProtagonist());
+            x.setCountry(f.getCountry());
+            x.setYear(f.getYear());
+            x.setCritics_rate(f.getCritics_rate());
+            x.setDirector(f.getDirector());
+            response.add(x);
+        }
+        return response;
+    }
+
+    private List<Film> filterById(long id, List<Film> filmList)
+    {
+        if(id == -1L) return filmList;
+        List<Film> cloned = cloneListFilm(filmList);
+        List<Film> deleteCandidates = new ArrayList<>();
+        for(Film f : cloned){
+            if(f.getId() != id) deleteCandidates.add(f);
+        }
+        for(Film f : deleteCandidates){
+            cloned.remove(f);
+        }
+        return cloned;
+    }
+
+    private List<Film> filterByActor(String actor, List<Film> filmList)
+    {
+        if(actor == null || actor.isEmpty()) return filmList;
+        List<Film> cloned = cloneListFilm(filmList);
+        List<Film> deleteCandidates = new ArrayList<>();
+        for(Film f : cloned){
+            if(!f.getProtagonist().equalsIgnoreCase(actor)) deleteCandidates.add(f);
+        }
+        for(Film f : deleteCandidates){
+            cloned.remove(f);
+        }
+        return cloned;
     }
 
     @Override
