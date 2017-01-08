@@ -111,7 +111,8 @@
             android:id="@+id/add_film_field_puntuation"
             android:gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:textSize="25sp" />
+            android:textSize="40sp"
+            android:textColor="@color/accent" />
 
         <SeekBar
             android:layout_width="match_parent"

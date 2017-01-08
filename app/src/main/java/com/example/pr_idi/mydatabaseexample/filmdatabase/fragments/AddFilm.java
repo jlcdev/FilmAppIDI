@@ -2,8 +2,10 @@ package com.example.pr_idi.mydatabaseexample.filmdatabase.fragments;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +67,9 @@ public class AddFilm extends Fragment implements View.OnClickListener
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
             {
                 puntuation.setText(""+progress);
+                if(progress < 4) puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.danger));
+                else if(progress > 3 && progress < 7) puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.accent));
+                else puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.success));
             }
 
             @Override
