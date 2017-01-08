@@ -12,11 +12,14 @@ import android.view.ViewGroup;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.adapters.ShowFilmsAdapter;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.filters.FilmComparatorByYear;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,10 +55,12 @@ public class ShowFilms extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
+        
         //Filter data
         filteredList = new ArrayList<>();
         filteredList = filterById(id, listFilm);
         filteredList = filterByActor(actor, filteredList);
+        Collections.sort(filteredList, new FilmComparatorByYear());
         ShowFilmsAdapter showFilmsAdapter = new ShowFilmsAdapter(filteredList);
         showFilmsAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
