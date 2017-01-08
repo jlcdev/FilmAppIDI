@@ -55,7 +55,7 @@ public class ShowFilms extends Fragment
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        
+
         //Filter data
         filteredList = new ArrayList<>();
         filteredList = filterById(id, listFilm);

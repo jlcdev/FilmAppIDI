@@ -1,6 +1,7 @@
 package com.example.pr_idi.mydatabaseexample.filmdatabase;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -80,7 +82,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(backCount > 1) {
             fragmentManager.popBackStack();
         } else {
-            finish();
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setTitle("Sortir?");
+            adb.setMessage("Estàs segur de voler sortir de l'aplicació");
+            adb.setNegativeButton("Cancel", null);
+            adb.setPositiveButton("Ok", new AlertDialog.OnClickListener()
+            {
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    finish();
+                }
+            });
+            adb.show();
         }
     }
 
