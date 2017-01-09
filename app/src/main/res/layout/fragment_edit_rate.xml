@@ -1,53 +1,76 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="match_parent">
 
     <TextView
-        android:text="TextView"
+        android:text="Pel·lícula:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView4" />
+
+    <TextView
+        android:text="Pel·lícula"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:id="@+id/edit_rate_field_title" />
+
+    <TextView
+        android:text="Valoració"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_edit_rate_puntuation"
+        android:layout_marginTop="62dp"
+        android:layout_below="@+id/edit_rate_field_title"
+        android:layout_alignLeft="@+id/edit_rate_field_title"
+        android:layout_alignStart="@+id/edit_rate_field_title" />
+
+    <TextView
+        android:text="5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView" />
+        android:id="@+id/edit_rate_field_puntuation"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"
+        android:textSize="50sp"
+        android:textColor="@color/accent"
+        android:layout_below="@+id/label_edit_rate_puntuation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <SeekBar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_chevron_left_black_24dp"
-            android:id="@+id/edit_rate_button_down"
-            android:background="@android:color/transparent"
-            android:layout_weight="1" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/label_edit_rate_puntuation"
-            android:gravity="center_vertical|center_horizontal"
-            android:layout_weight="1.00" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_chevron_right_black_24dp"
-            android:background="@android:color/transparent"
-            android:id="@+id/edit_rate_button_up"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_rate_field_seekBar"
+        android:layout_weight="1"
+        android:max="10"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/edit_rate_field_puntuation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Enmagatzemar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_rate_button_save" />
-</LinearLayout>
+        android:id="@+id/edit_rate_button_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:background="@color/primary"
+        android:textColor="@android:color/background_light" />
+
+</RelativeLayout>

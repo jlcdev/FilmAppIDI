@@ -5,12 +5,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
@@ -26,7 +28,8 @@ public class EditRate extends Fragment implements View.OnClickListener
     private OnFragmentInteractionListener parentListener;
     private FilmData database;
     private Film film;
-    private TextView textView;
+    private TextView puntuation;
+    private TextView title;
 
     public EditRate(){}
 
@@ -46,13 +49,37 @@ public class EditRate extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_edit_rate, container, false);
-        textView = (TextView) view.findViewById(R.id.label_edit_rate_puntuation);
         view.findViewById(R.id.edit_rate_button_save).setOnClickListener(this);
-        view.findViewById(R.id.edit_rate_button_down).setOnClickListener(this);
-        view.findViewById(R.id.edit_rate_button_up).setOnClickListener(this);
+        puntuation = (TextView) view.findViewById(R.id.edit_rate_field_puntuation);
+        title = (TextView) view.findViewById(R.id.edit_rate_field_title);
+        SeekBar seekBar = (SeekBar) view.findViewById(R.id.edit_rate_field_seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                puntuation.setText(""+progress);
+                if(progress < 4) puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.danger));
+                else if(progress > 3 && progress < 7) puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.accent));
+                else puntuation.setTextColor(ContextCompat.getColor(getActivity(), R.color.success));
+            }
 
-        textView.setText("0");
-        if(film != null) textView.setText(""+film.getCritics_rate());
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        if(film != null){
+            int num = film.getCritics_rate();
+            puntuation.setText("" + num);
+            title.setText(film.getTitle());
+            seekBar.setProgress(num);
+        }
         return view;
     }
 
@@ -74,25 +101,16 @@ public class EditRate extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        int num = Integer.parseInt(textView.getText().toString());
         switch(v.getId())
         {
-            case R.id.edit_rate_button_up:
-                num += 1;
-                break;
-            case R.id.edit_rate_button_down:
-                num -= 1;
-                break;
             case R.id.edit_rate_button_save:
                 if(film != null){
+                    int num = Integer.parseInt(puntuation.getText().toString());
                     film.setCritics_rate(num);
                     database.updateFilm(film);
                     parentListener.onFragmentInteraction(ShowFilms.TAG, new Bundle());
                 }
                 break;
         }
-        if(num > 10) num = 10;
-        if(num < 0) num = 0;
-        textView.setText(""+num);
     }
 }
