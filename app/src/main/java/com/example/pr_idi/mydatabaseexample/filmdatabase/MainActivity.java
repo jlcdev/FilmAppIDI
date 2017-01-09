@@ -20,8 +20,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.About;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.AddFilm;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.EditRate;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.Help;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByTitle;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.SearchByActor;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.fragments.ShowFilms;
@@ -123,6 +125,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_add_film:
                 onFragmentInteraction(AddFilm.TAG, new Bundle());
                 break;
+            case R.id.nav_help:
+                onFragmentInteraction(Help.TAG, new Bundle());
+                break;
+            case R.id.nav_about:
+                onFragmentInteraction(About.TAG, new Bundle());
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -157,6 +165,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = EditRate.newInstance(bundle, filmData);
                 transaction.replace(R.id.fragmentContainer, fragment);
                 transaction.addToBackStack(EditRate.TAG);
+                break;
+            case Help.TAG:
+                fragment = Help.newInstance();
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(Help.TAG);
+                break;
+            case About.TAG:
+                fragment = About.newInstance();
+                transaction.replace(R.id.fragmentContainer, fragment);
+                transaction.addToBackStack(About.TAG);
                 break;
             default:
                 navigationView.getMenu().getItem(0).setChecked(true);
