@@ -12,7 +12,9 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:id="@+id/list_item_search_title_text"
-        android:layout_margin="2dp" />
+        android:layout_margin="2dp"
+        android:paddingLeft="5dp"
+        android:textSize="18sp" />
     <ImageButton
         android:layout_width="52dp"
         android:layout_height="52dp"
