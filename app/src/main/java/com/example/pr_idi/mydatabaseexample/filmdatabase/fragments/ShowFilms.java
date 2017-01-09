@@ -77,6 +77,7 @@ public class ShowFilms extends Fragment
 
     private List<Film> cloneListFilm(List<Film> original){
         List<Film> response = new ArrayList<>();
+        if(original == null) return response;
         for(Film f : original){
             Film x = new Film();
             x.setId(f.getId());

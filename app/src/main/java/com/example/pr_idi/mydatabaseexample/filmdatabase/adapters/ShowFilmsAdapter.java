@@ -1,6 +1,7 @@
 package com.example.pr_idi.mydatabaseexample.filmdatabase.adapters;
 
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,7 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
     public static class FilmViewHolder extends RecyclerView.ViewHolder
     {
         Long id;
+        CardView cardView;
         TextView title;
         TextView director;
         TextView actor;
@@ -94,6 +96,7 @@ public class ShowFilmsAdapter extends RecyclerView.Adapter<ShowFilmsAdapter.Film
         FilmViewHolder(View itemView)
         {
             super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.list_item_show_films_cardview);
             title = (TextView)itemView.findViewById(R.id.show_films_field_title);
             director = (TextView)itemView.findViewById(R.id.show_films_field_director);
             actor = (TextView)itemView.findViewById(R.id.show_films_field_actor);
