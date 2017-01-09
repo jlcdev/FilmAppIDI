@@ -28,6 +28,7 @@ import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentIn
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,7 +57,10 @@ public class SearchByTitle extends Fragment
         view = inflater.inflate(R.layout.fragment_search_by_title, container, false);
         listView = (ListView) view.findViewById(R.id.list_search_title);
         autoCompleteTextView = (AutoCompleteTextView) view.findViewById(R.id.field_search_title);
-        films = database.getAllFilms();
+        films = new ArrayList<>();
+        if(database != null){
+            films = database.getAllFilms();
+        }
         Collections.sort(films, new MyComparatorTitle());
 
         //Set autocomplete values
