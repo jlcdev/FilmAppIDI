@@ -64,20 +64,16 @@ public class EditRate extends Fragment implements View.OnClickListener
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar){}
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar){}
         });
 
         if(film != null){
             int num = film.getCritics_rate();
             puntuation.setText("" + num);
-            title.setText(film.getTitle());
+            title.setText(film.getTitle() + " (" + film.getYear() + ")");
             seekBar.setProgress(num);
         }
         return view;
