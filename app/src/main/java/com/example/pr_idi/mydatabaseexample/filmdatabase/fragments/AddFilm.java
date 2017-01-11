@@ -2,10 +2,12 @@ package com.example.pr_idi.mydatabaseexample.filmdatabase.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +19,17 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.filmdatabase.R;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.interfaces.OnFragmentInteractionListener;
+import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.Film;
 import com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton.FilmData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public class AddFilm extends Fragment implements View.OnClickListener
@@ -164,11 +169,32 @@ public class AddFilm extends Fragment implements View.OnClickListener
                     warning = true;
                     this.puntuation.setError("Entre 0 i 10");
                 }else this.puntuation.setError(null);
+                if(existFilmInDatabase(title)){
+                    showError(this.getContext(), "Ja existeix la pel·licula");
+                    warning = true;
+                }
                 if(!warning){
                     database.createFilm(title, director, actor, country, year, rate);
                     parentListener.onFragmentInteraction(SearchByTitle.TAG, new Bundle());
                 }
                 break;
         }
+    }
+    private void showError(Context context, String message){
+        AlertDialog.Builder adb = new AlertDialog.Builder(this.getContext());
+        adb.setTitle("Tenim un problema");
+        adb.setMessage("La pel·licula que vols introduir ja existeix.");
+        adb.setPositiveButton("Ok", null);
+        adb.show();
+    }
+
+    private boolean existFilmInDatabase(String title){
+        List<Film> comparationList = database.getAllFilms();
+        for(Film f : comparationList){
+            if(title.equalsIgnoreCase(f.getTitle())){
+                return true;
+            }
+        }
+        return false;
     }
 }

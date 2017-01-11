@@ -41,20 +41,8 @@ public class About extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
-        TextView texto1 = (TextView) view.findViewById(R.id.textView6);
-        TextView texto2 = (TextView) view.findViewById(R.id.textView7);
-        TextView texto3 = (TextView) view.findViewById(R.id.textView8);
-        texto1.setText("Aplicación realizada como entrega evaluable durante el curso 2016-2017, cuatrimestre de otoño para la asignatura de IDI.\n" +
-                        "\n" +
-                        "Desarrolladores de la interfaz\n");
+        View view = inflater.inflate(R.layout.fragment_about_2, container, false);
 
-        texto2.setText("Domingo Jesús de la Mata García\n" +
-                        "Javier López Calderón\n");
-        texto3.setText("\n" +
-                        "Interacción y diseño de interfaces 2016-2017\n" +
-                        "Facultad de Informática de Barcelona\n" +
-                        "Universidad Politécnica de Cataluña\n" );
         return view;
     }
 
