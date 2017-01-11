@@ -4,6 +4,7 @@ package com.example.pr_idi.mydatabaseexample.filmdatabase.skeleton;
  * MySQLiteHelper
  * Created by pr_idi on 10/11/16.
  */
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -41,6 +42,42 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
+
+        ContentValues film1 = new ContentValues();
+        film1.put(MySQLiteHelper.COLUMN_TITLE, "Iron Man");
+        film1.put(MySQLiteHelper.COLUMN_DIRECTOR, "Jon Favreau");
+        film1.put(MySQLiteHelper.COLUMN_COUNTRY, "United States");
+        film1.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, "2008");
+        film1.put(MySQLiteHelper.COLUMN_PROTAGONIST, "Robert Downey Jr.");
+        film1.put(MySQLiteHelper.COLUMN_CRITICS_RATE, "10");
+        database.insert(MySQLiteHelper.TABLE_FILMS, null, film1);
+
+        ContentValues film2 = new ContentValues();
+        film2.put(MySQLiteHelper.COLUMN_TITLE, "El Padrino");
+        film2.put(MySQLiteHelper.COLUMN_DIRECTOR, "Francis Ford Coppola");
+        film2.put(MySQLiteHelper.COLUMN_COUNTRY, "United States");
+        film2.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, "1972");
+        film2.put(MySQLiteHelper.COLUMN_PROTAGONIST, "Marlon Brando");
+        film2.put(MySQLiteHelper.COLUMN_CRITICS_RATE, "9");
+        database.insert(MySQLiteHelper.TABLE_FILMS, null, film2);
+
+        ContentValues film3 = new ContentValues();
+        film3.put(MySQLiteHelper.COLUMN_TITLE, "Sherlock Holmes");
+        film3.put(MySQLiteHelper.COLUMN_DIRECTOR, "Guy Ritchie");
+        film3.put(MySQLiteHelper.COLUMN_COUNTRY, "United States");
+        film3.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, "2009");
+        film3.put(MySQLiteHelper.COLUMN_PROTAGONIST, "Robert Downey Jr.");
+        film3.put(MySQLiteHelper.COLUMN_CRITICS_RATE, "8");
+        database.insert(MySQLiteHelper.TABLE_FILMS, null, film3);
+
+        ContentValues film4 = new ContentValues();
+        film4.put(MySQLiteHelper.COLUMN_TITLE, "El Caballero Oscuro");
+        film4.put(MySQLiteHelper.COLUMN_DIRECTOR, "Christopher Nolan");
+        film4.put(MySQLiteHelper.COLUMN_COUNTRY, "United States");
+        film4.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, "2009");
+        film4.put(MySQLiteHelper.COLUMN_PROTAGONIST, "Christian Bale");
+        film4.put(MySQLiteHelper.COLUMN_CRITICS_RATE, "8");
+        database.insert(MySQLiteHelper.TABLE_FILMS, null, film4);
     }
 
     @Override
