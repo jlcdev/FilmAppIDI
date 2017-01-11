@@ -62,7 +62,7 @@
                 android:layout_toEndOf="@+id/textView3" />
 
             <TextView
-                android:text="Païs: "
+                android:text="Pais: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView3"
@@ -72,7 +72,7 @@
                 android:layout_marginBottom="5dp" />
 
             <TextView
-                android:text="País"
+                android:text="Pais"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/show_films_field_country"
