@@ -64,12 +64,7 @@ public class SearchByTitle extends Fragment
         Collections.sort(films, new MyComparatorTitle());
 
         //Set autocomplete values
-        String[] proposals = new String[films.size()];
-        for(int i=0; i < films.size(); ++i){
-            proposals[i] = films.get(i).getTitle();
-        }
-        ArrayAdapter<String> proposalAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, proposals);
-        autoCompleteTextView.setAdapter(proposalAdapter);
+        fillAutoComplete();
 
         //Set list values
         searchFilmAdapter = new SearchFilmAdapter(this, view.getContext(), films);
@@ -107,6 +102,15 @@ public class SearchByTitle extends Fragment
         };
         autoCompleteTextView.addTextChangedListener(searchFieldWatcher);
         return view;
+    }
+
+    private void fillAutoComplete(){
+        String[] proposals = new String[films.size()];
+        for(int i=0; i < films.size(); ++i){
+            proposals[i] = films.get(i).getTitle();
+        }
+        ArrayAdapter<String> proposalAdapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_list_item_1, proposals);
+        autoCompleteTextView.setAdapter(proposalAdapter);
     }
 
     @Override
@@ -153,6 +157,7 @@ public class SearchByTitle extends Fragment
                 searchFilmAdapter.notifyDataSetChanged();
                 //Vaciamos la caja de búsqueda
                 autoCompleteTextView.setText("");
+                fillAutoComplete();
             }
         });
         adb.show();
